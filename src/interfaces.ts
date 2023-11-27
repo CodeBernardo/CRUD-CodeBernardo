@@ -14,7 +14,7 @@ interface CRUDOperations {
   createProduct(product: CreateProduct): Product;
   getProducts(): Product[];
   getOneProduct(id: number): Product | undefined;
-  updateProduct(id: number, data: UpdateProduct): Product;
+  updateProduct(id: number, data: UpdateProduct): Product | string;
   deleteProduct(id: number): DeleteResult;
 }
 
