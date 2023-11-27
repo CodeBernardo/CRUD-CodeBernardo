@@ -5,7 +5,6 @@ class ProductList implements CRUDOperations {
   id: number = 1;
 
   createProduct(product: { name: string; price: number }): Product {
-
     const newProduct: Product = {
       id: this.id,
       name: product.name,
@@ -13,10 +12,8 @@ class ProductList implements CRUDOperations {
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
     this.productList.push(newProduct);
     this.id++;
-
     return newProduct;
   }
 
@@ -32,37 +29,30 @@ class ProductList implements CRUDOperations {
   updateProduct(
     id: number,
     data: Partial<{ name: string; price: number }>,
-  ): Product | string {
-
+  ): Product | { message: string } {
     const productFound = this.productList.find((product) => product.id === id);
-
     const productIdx = this.productList.findIndex(
       (product) => product === productFound,
     );
-
     let updatedData: Product;
-
     if (!productFound) {
-      return "Product not found.";
+      return { message: "Product not found." };
     }
-
     updatedData = {
       ...productFound,
       ...data,
       updatedAt: new Date(),
     };
-
     this.productList.splice(productIdx, 1, updatedData);
-
     return updatedData;
   }
 
-  deleteProduct ( id: number ): { message: string; } {
+  deleteProduct(id: number): { message: string } {
     const productFound = this.productList.find((product) => product.id === id);
     const productIdx = this.productList.findIndex(
       (product) => product === productFound,
     );
-    this.productList.splice(productIdx, 1)
+    this.productList.splice(productIdx, 1);
     return { message: "Product sucessfully deleted." };
   }
 }
